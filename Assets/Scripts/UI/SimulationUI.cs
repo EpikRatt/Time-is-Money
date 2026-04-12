@@ -38,10 +38,10 @@ public class SimulationControllerUI : MonoBehaviour
     {
         if (stateManager == null) return;
 
-        timeText.text = "$Current Time: {TimeManager.Instance.GetInGameTime()}";
-        moneyText.text = "$NetWorth: {stateManager.CurrentMoney}";
-        energyText.text = "$NetWorth: {stateManager.CurrentEnergy}";
-        hungerText.text = "$NetWorth: {stateManager.CurrentMoney}";
-        funText.text = "$NetWorth: {stateManager.CurrentMoney}";
+        timeText.text = $"Current Time: {TimeManager.Instance.GetInGameTime()}";
+        moneyText.text = $"NetWorth: {stateManager.CurrentMoney}";
+        energyText.text = $"Energy: {stateManager.CurrentEnergy}";
+        hungerText.text = $"Hunger: {stateManager.CurrentHunger}";
+        funText.text = $"Fun: {stateManager.CurrentFun}";
     }
 }

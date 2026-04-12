@@ -1,14 +1,30 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// GOAP Framework: The abstract base class for all actions.
-/// Architectural Purpose: Defines the strict contract for any action injectible into the GOAP planner.
-/// Encapsulates execution logic, world state preconditions required to begin the action,
-/// world state effects applied upon completion, and dynamically calculable traversal costs.
-/// Ensures all actions adhere uniformly to the planner's A* heuristic requirements.
-/// </summary>
 public abstract class GoapAction : MonoBehaviour
 {
+    public string ActionName { get; protected set; } = "Unnamed Action";
+    public float ActionCost { get; protected set; } = 1f;
+
+    public Dictionary<string, int> Preconditions { get; private set; }
+    public Dictionary<string, int> Effects { get; private set; }
+
+    protected virtual void Awake()
+    {
+        Preconditions = new Dictionary<string, int>();
+        Effects = new Dictionary<string, int>();
+        SetupEffectsAndPreconditions();
+    }
+
+    public abstract void Perform(GameObject agent);
+
+    protected abstract void SetupEffectsAndPreconditions();
+
+    public abstract bool CheckProceduralPrecondition(GameObject agent);
+
+    protected void AddPrecondition(string key, int value) { Preconditions[key] = value; }
+    protected void RemovePrecondition(string key) { if (Preconditions.ContainsKey(key)) Preconditions.Remove(key); }
+    
+    protected void AddEffect(string key, int value) { Effects[key] = value; }
+    protected void RemoveEffect(string key) { if (Effects.ContainsKey(key)) Effects.Remove(key); }
 }

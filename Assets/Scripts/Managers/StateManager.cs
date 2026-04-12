@@ -26,30 +26,20 @@ public class StateManager : MonoBehaviour
 
     private void OnEnable()
     {
-        // Subscribe to the global time pulse using a distinct handler name
+
         TimeManager.OnTick += HandleTick;
     }
 
     private void OnDisable()
     {
-        // Unsubscribe to prevent memory leaks if the object is destroyed
-        if (TimeManager.Instance != null)
-        {
             TimeManager.OnTick -= HandleTick;
-        }
     }
 
     private void HandleTick()
     {
-        // Apply Degradation
-        CurrentEnergy -= energyDrainPerTick;
-        CurrentHunger -= hungerDrainPerTick;
-        CurrentFun -= funDrainPerTick;
-
-        // Clamp values to prevent negative states or exceeding maximums
-        CurrentEnergy = Mathf.Clamp(CurrentEnergy, 0, MAX_STAT_VALUE);
-        CurrentHunger = Mathf.Clamp(CurrentHunger, 0, MAX_STAT_VALUE);
-        CurrentFun = Mathf.Clamp(CurrentFun, 0, MAX_STAT_VALUE);
+        ConsumeEnergy(energyDrainPerTick);
+        ConsumeHunger(hungerDrainPerTick);
+        ConsumeFun(funDrainPerTick);
 
         EvaluateCriticalStates();
     }
@@ -65,7 +55,13 @@ public class StateManager : MonoBehaviour
 
     public void AddMoney(int amount) { CurrentMoney += amount; }
     public void SubtractMoney(int amount) { CurrentMoney -= amount; }
-    public void RestoreHunger(int amount) { CurrentHunger = Mathf.Clamp(CurrentHunger + amount, 0, MAX_STAT_VALUE); }
+
+    public void ConsumeEnergy(int amount) { CurrentHunger = Mathf.Clamp(CurrentHunger - amount, 0, MAX_STAT_VALUE); }
     public void RestoreEnergy(int amount) { CurrentEnergy = Mathf.Clamp(CurrentEnergy + amount, 0, MAX_STAT_VALUE); }
+
+    public void ConsumeHunger(int amount) { CurrentHunger = Mathf.Clamp(CurrentHunger - amount, 0, MAX_STAT_VALUE); }
+    public void RestoreHunger(int amount) { CurrentHunger = Mathf.Clamp(CurrentHunger + amount, 0, MAX_STAT_VALUE); }
+
+    public void ConsumeFun(int amount) { CurrentHunger = Mathf.Clamp(CurrentHunger - amount, 0, MAX_STAT_VALUE); }
     public void RestoreFun(int amount) { CurrentFun = Mathf.Clamp(CurrentFun + amount, 0, MAX_STAT_VALUE); }
 }
