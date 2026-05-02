@@ -40,8 +40,8 @@ public class SimulationControllerUI : MonoBehaviour
 
         timeText.text = $"Current Time: {TimeManager.Instance.GetInGameTime()}";
         moneyText.text = $"NetWorth: {stateManager.CurrentMoney}";
-        energyText.text = $"Energy: {stateManager.CurrentEnergy}";
-        hungerText.text = $"Hunger: {stateManager.CurrentHunger}";
-        funText.text = $"Fun: {stateManager.CurrentFun}";
+        energyText.text = $"Energy: {Mathf.RoundToInt(stateManager.Energy.value)}";
+        hungerText.text = $"Hunger: {Mathf.RoundToInt(stateManager.Hunger.value)}";
+        funText.text = $"Fun: {Mathf.RoundToInt(stateManager.Fun.value)}";
     }
 }

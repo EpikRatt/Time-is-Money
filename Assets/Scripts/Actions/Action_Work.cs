@@ -4,15 +4,17 @@ public class Action_Work : GoapAction
 {
     private StateManager stateManager;
 
+    private int salary = 20;
+
     protected override void Awake()
     {
         base.Awake();
-        ActionName = "Work at Terminal";
+        ActionName = "Work";
         ActionCost = 5f;
     }
 
     private void Start()
-    {
+    { 
         stateManager = GetComponent<StateManager>();
     }
 
@@ -31,10 +33,8 @@ public class Action_Work : GoapAction
     {
         if (stateManager == null) return;
 
-        // 1. Apply bulk stat changes for this 1 turn
-        stateManager.AddMoney(20);
+        stateManager.AddMoney(salary);
 
-        // 2. The Action explicitly commands time to move forward
-        TimeManager.Instance.HandleTick();
+        TimeManager.Instance.PerformTick(); // Tick Event Call
     }
 }

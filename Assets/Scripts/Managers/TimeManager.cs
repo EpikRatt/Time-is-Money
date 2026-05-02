@@ -18,7 +18,7 @@ public class TimeManager : MonoBehaviour
         Instance = this;
     }
 
-    public void HandleTick()
+    public void PerformTick()
     {
         TotalTicks++;
         OnTick?.Invoke(); 

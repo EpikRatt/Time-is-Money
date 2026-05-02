@@ -26,5 +26,5 @@ Instead of hardcoded reactive logic, the agent relies on an algorithmic planner:
 
 ## Contact
 * **Developer:** Matthew Bridge
-* **GitHub:** [@EpikRatt](https://github.com/EpikRatt
+* **GitHub:** [@EpikRatt](https://github.com/EpikRatt)
 * **LinkedIn:** www.linkedin.com/in/matthew-l-bridge

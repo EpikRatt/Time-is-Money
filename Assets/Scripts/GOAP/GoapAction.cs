@@ -4,7 +4,7 @@ using UnityEngine;
 public abstract class GoapAction : MonoBehaviour
 {
     public string ActionName { get; protected set; } = "Unnamed Action";
-    public float ActionCost { get; protected set; } = 1f;
+    public int ActionCost { get; protected set; } = 1;
 
     public Dictionary<string, int> Preconditions { get; private set; }
     public Dictionary<string, int> Effects { get; private set; }
