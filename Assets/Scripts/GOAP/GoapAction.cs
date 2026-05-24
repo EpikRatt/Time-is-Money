@@ -5,6 +5,8 @@ public abstract class GoapAction : MonoBehaviour
 {
     public string ActionName { get; protected set; } = "Unnamed Action";
     public int ActionCost { get; protected set; } = 1;
+    
+    [field: SerializeField] public Transform TargetLocation { get; protected set; }
 
     public Dictionary<string, int> Preconditions { get; private set; }
     public Dictionary<string, int> Effects { get; private set; }

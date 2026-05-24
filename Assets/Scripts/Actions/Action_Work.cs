@@ -10,23 +10,24 @@ public class Action_Work : GoapAction
     {
         base.Awake();
         ActionName = "Work";
-        ActionCost = 5f;
+        ActionCost = 5;
     }
 
     private void Start()
-    { 
+    {
         stateManager = GetComponent<StateManager>();
     }
 
     protected override void SetupEffectsAndPreconditions()
     {
-        AddPrecondition("isExhausted", 0);
-        AddEffect("hasMoney", 1);
+        AddPrecondition(GoapKeys.EnergyState, (int)MotivatorState.Stable);
+
+        AddEffect(GoapKeys.HasRent, 1);
     }
 
     public override bool CheckProceduralPrecondition(GameObject agent)
     {
-        return true; 
+        return true;
     }
 
     public override void Perform(GameObject agent)
@@ -35,6 +36,6 @@ public class Action_Work : GoapAction
 
         stateManager.AddMoney(salary);
 
-        TimeManager.Instance.PerformTick(); // Tick Event Call
+        TimeManager.Instance.PerformTick();
     }
 }

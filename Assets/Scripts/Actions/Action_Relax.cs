@@ -7,5 +7,7 @@ using UnityEngine;
 /// Conceptually restores the agent's Hunger metric while consuming Money and Time.
 /// Evaluated dynamically by the GoapPlanner to satisfy survival-oriented goals.
 /// </summary>
-public class Action_Relax : GoapAction
-{}
+public class Action_Relax : MonoBehaviour
+{
+    
+}
