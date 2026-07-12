@@ -17,8 +17,6 @@ public class Motivator
     public int thresholdCritical = 5;
     public int thresholdUrgent = 35;
 
-    public int Percentage => value / maxValue;
-
     public MotivatorState State
     {
         get

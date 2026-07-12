@@ -8,5 +8,5 @@ public static class GoapKeys
     public const string FunState    = "FunState";
 
     // Resources / Boolean States
-    public const string HasRent    = "HasRent";
+    public const string HasMoney    = "HasMoney";
 }

@@ -39,7 +39,7 @@ public class SimulationControllerUI : MonoBehaviour
         if (stateManager == null) return;
 
         timeText.text = $"Current Time: {TimeManager.Instance.GetInGameTime()}";
-        moneyText.text = $"NetWorth: {stateManager.Money.value}";
+        moneyText.text = $"Money: {stateManager.Money.value}";
         energyText.text = $"Energy: {stateManager.Energy.value}";
         hungerText.text = $"Hunger: {stateManager.Hunger.value}";
         funText.text = $"Fun: {stateManager.Fun.value}";

@@ -6,15 +6,14 @@ public class StateManager : MonoBehaviour
 {
     public event Action OnCriticalStateReached;
 
-    [field: SerializeField] public Motivator Money { get; private set; } = new Motivator { name = "Money", value = 100 };    
-    [field: SerializeField] public Motivator Energy { get; private set; } = new Motivator { name = "Energy", value = 100 };
-    [field: SerializeField] public Motivator Hunger { get; private set; } = new Motivator { name = "Hunger", value = 100 };
-    [field: SerializeField] public Motivator Fun { get; private set; } = new Motivator { name = "Fun", value = 100 };
+    public Motivator Money { get; private set; } = new Motivator { name = "Money", value = 0, maxValue = 9999 };
+    public Motivator Energy { get; private set; } = new Motivator { name = "Energy", value = 50, maxValue = 100 };
+    public Motivator Hunger { get; private set; } = new Motivator { name = "Hunger", value = 50, maxValue = 100 };
+    public Motivator Fun { get; private set; } = new Motivator { name = "Fun", value = 50, maxValue = 100 };
 
-    [Header("Cost of Living Settings")]
-    [field: SerializeField] public int energyDrainPerTick { get; private set; } = 2;
-    [field: SerializeField] public int hungerDrainPerTick { get; private set; } = 5;
-    [field: SerializeField] public int funDrainPerTick { get; private set; } = 3;
+    public int energyDrainPerTick { get; private set; } = 2;
+    public int hungerDrainPerTick { get; private set; } = 5;
+    public int funDrainPerTick { get; private set; } = 3;
 
     private void OnEnable()
     {
@@ -54,7 +53,7 @@ public class StateManager : MonoBehaviour
     private void EvaluateCriticalStates()
     {
         // If biological requirements fall below the threshold, broadcast the interrupt event
-        if (Energy.State == MotivatorState.Critical || Hunger.State == MotivatorState.Critical || 
+        if (Energy.State == MotivatorState.Critical || Hunger.State == MotivatorState.Critical ||
             Energy.State == MotivatorState.Urgent || Hunger.State == MotivatorState.Urgent)
         {
             OnCriticalStateReached?.Invoke();

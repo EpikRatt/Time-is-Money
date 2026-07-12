@@ -21,8 +21,10 @@ public class Action_Work : GoapAction
     protected override void SetupEffectsAndPreconditions()
     {
         AddPrecondition(GoapKeys.EnergyState, (int)MotivatorState.Stable);
+        AddPrecondition(GoapKeys.HungerState, (int)MotivatorState.Stable);
+        //AddPrecondition(GoapKeys.FunState, (int)MotivatorState.Stable);
 
-        AddEffect(GoapKeys.HasRent, 1);
+        AddEffect(GoapKeys.HasMoney, 1);
     }
 
     public override bool CheckProceduralPrecondition(GameObject agent)

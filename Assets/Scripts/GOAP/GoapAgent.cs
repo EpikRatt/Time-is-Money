@@ -6,6 +6,8 @@ using UnityEngine.AI; // CRITICAL: Required to talk to the NavMeshAgent
 
 [RequireComponent(typeof(StateManager))]
 [RequireComponent(typeof(NavMeshAgent))] // Forces Unity to add the NavMesh component
+
+// Spade a Spade... This is some GEMINI genius, needs some personal review.
 public class GoapAgent : MonoBehaviour
 {
     private StateManager stateManager;
@@ -52,22 +54,35 @@ public class GoapAgent : MonoBehaviour
         }
     }
 
-    private void EvaluateAndPlan()
+private void EvaluateAndPlan()
     {
         Dictionary<string, int> worldState = stateManager.GetWorldState();
+        Dictionary<string, int> goal = new Dictionary<string, int>();
 
-        // 2. Define a Goal. Let's make the default goal to get Money.
-        Dictionary<string, int> goal = new Dictionary<string, int>
+        // 1. Check for immediate physical needs first (Utility AI influence)
+        if (worldState.ContainsKey(GoapKeys.HungerState) && worldState[GoapKeys.HungerState] > (int)MotivatorState.Stable)
         {
-            { GoapKeys.HasRent, 1 }
-        };
+            Debug.Log("[Planner] Agent is hungry. Setting goal to Eat.");
+            goal.Add(GoapKeys.HungerState, (int)MotivatorState.Stable);
+        }
+        else if (worldState.ContainsKey(GoapKeys.EnergyState) && worldState[GoapKeys.EnergyState] > (int)MotivatorState.Stable)
+        {
+            Debug.Log("[Planner] Agent is tired. Setting goal to Sleep.");
+            goal.Add(GoapKeys.EnergyState, (int)MotivatorState.Stable);
+        }
+        else
+        {
+            // 2. If all biological needs are met, pursue the overarching goal: Wealth
+            Debug.Log("[Planner] Needs are met. Setting goal to Work.");
+            goal.Add(GoapKeys.HasMoney, 1);
+        }
 
-        // 3. Ask the Brain for a plan
+        // Ask the Brain for a plan based on the chosen goal
         actionPlan = GoapPlanner.Plan(gameObject, availableActions, worldState, goal);
 
-        if (actionPlan == null)
+        if (actionPlan == null || actionPlan.Count == 0)
         {
-            Debug.LogWarning("[Planner] Could not find a valid path to the goal.");
+            Debug.LogWarning("[Planner] Could not find a valid path to the goal. Agent is stuck!");
         }
     }
 
@@ -82,14 +97,23 @@ public class GoapAgent : MonoBehaviour
         currentAction = null;
         isExecutingPlan = false;
         
-        // Change our immediate goal to survival (Restore Energy)
         Dictionary<string, int> worldState = stateManager.GetWorldState();
-        Dictionary<string, int> survivalGoal = new Dictionary<string, int>
+        Dictionary<string, int> survivalGoal = new Dictionary<string, int>();
+
+        // Dynamically set survival goal based on whichever biological needs are not stable
+        if (worldState.ContainsKey(GoapKeys.HungerState) && worldState[GoapKeys.HungerState] > (int)MotivatorState.Stable)
         {
-            { GoapKeys.EnergyState, (int)MotivatorState.Stable }
-        };
-        
-        actionPlan = GoapPlanner.Plan(gameObject, availableActions, worldState, survivalGoal);
+            survivalGoal.Add(GoapKeys.HungerState, (int)MotivatorState.Stable);
+        }
+        if (worldState.ContainsKey(GoapKeys.EnergyState) && worldState[GoapKeys.EnergyState] > (int)MotivatorState.Stable)
+        {
+            survivalGoal.Add(GoapKeys.EnergyState, (int)MotivatorState.Stable);
+        }
+
+        if (survivalGoal.Count > 0)
+        {
+            actionPlan = GoapPlanner.Plan(gameObject, availableActions, worldState, survivalGoal);
+        }
     }
 
     private IEnumerator ExecuteActionRoutine(GoapAction action)
