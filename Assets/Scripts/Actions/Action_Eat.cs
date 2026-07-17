@@ -6,7 +6,7 @@ public class Action_Eat : GoapAction
 
     // TODO: Add a cost for eating, and a precondition for having money to eat.
     // private int mealCost = 5;
-    private int mealNutrition = 15;
+    private int mealNutrition = 100;
 
     protected override void Awake()
     {

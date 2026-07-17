@@ -3,7 +3,7 @@ using UnityEngine;
 public class Action_Relax : GoapAction
 {
     private StateManager stateManager;
-    private int funRestoration = 40;
+    private int funRestoration = 20;
 
     protected override void Awake()
     {

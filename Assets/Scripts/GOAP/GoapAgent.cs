@@ -59,16 +59,20 @@ private void EvaluateAndPlan()
         Dictionary<string, int> worldState = stateManager.GetWorldState();
         Dictionary<string, int> goal = new Dictionary<string, int>();
 
-        // 1. Check for immediate physical needs first (Utility AI influence)
-        if (worldState.ContainsKey(GoapKeys.HungerState) && worldState[GoapKeys.HungerState] > (int)MotivatorState.Stable)
+        if (worldState.ContainsKey(GoapKeys.EnergyState) && worldState[GoapKeys.EnergyState] > (int)MotivatorState.Stable)
+        {
+            Debug.Log("[Planner] Agent is tired. Setting goal to Sleep.");
+            goal.Add(GoapKeys.EnergyState, (int)MotivatorState.Stable);
+        }
+        else if (worldState.ContainsKey(GoapKeys.HungerState) && worldState[GoapKeys.HungerState] > (int)MotivatorState.Stable)
         {
             Debug.Log("[Planner] Agent is hungry. Setting goal to Eat.");
             goal.Add(GoapKeys.HungerState, (int)MotivatorState.Stable);
         }
-        else if (worldState.ContainsKey(GoapKeys.EnergyState) && worldState[GoapKeys.EnergyState] > (int)MotivatorState.Stable)
+        else if (worldState.ContainsKey(GoapKeys.FunState) && worldState[GoapKeys.FunState] > (int)MotivatorState.Stable)
         {
-            Debug.Log("[Planner] Agent is tired. Setting goal to Sleep.");
-            goal.Add(GoapKeys.EnergyState, (int)MotivatorState.Stable);
+            Debug.Log("[Planner] Agent is bored. Setting goal to Fun.");
+            goal.Add(GoapKeys.FunState, (int)MotivatorState.Stable);
         }
         else
         {

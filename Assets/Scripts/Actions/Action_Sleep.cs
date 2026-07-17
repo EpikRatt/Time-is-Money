@@ -4,7 +4,7 @@ public class Action_Sleep : GoapAction
 {
     private StateManager stateManager;
 
-    private int RestRate = 20;
+    private int RestRate = 15;
 
     protected override void Awake()
     {
