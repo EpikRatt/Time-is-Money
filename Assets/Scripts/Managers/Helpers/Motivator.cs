@@ -15,7 +15,7 @@ public class Motivator
     public int maxValue = 100;
 
     public int thresholdCritical = 5;
-    public int thresholdUrgent = 35;
+    public int thresholdUrgent = 25;
 
     public MotivatorState State
     {

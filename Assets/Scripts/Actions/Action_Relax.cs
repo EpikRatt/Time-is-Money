@@ -5,6 +5,8 @@ public class Action_Relax : GoapAction
     private StateManager stateManager;
     private int funRestoration = 20;
 
+    public int FunRestoration { get => funRestoration; set => funRestoration = value; }
+
     protected override void Awake()
     {
         base.Awake();

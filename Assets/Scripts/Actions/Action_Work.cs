@@ -6,6 +6,8 @@ public class Action_Work : GoapAction
 
     private int salary = 20;
 
+    public int Salary { get => salary; set => salary = value; }
+
     protected override void Awake()
     {
         base.Awake();

@@ -8,6 +8,8 @@ public class Action_Eat : GoapAction
     // private int mealCost = 5;
     private int mealNutrition = 100;
 
+    public int MealNutrition { get => mealNutrition; set => mealNutrition = value; }
+
     protected override void Awake()
     {
         base.Awake();

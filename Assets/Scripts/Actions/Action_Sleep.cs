@@ -4,13 +4,15 @@ public class Action_Sleep : GoapAction
 {
     private StateManager stateManager;
 
-    private int RestRate = 15;
+    private int restRate = 15;
+
+    public int RestRate { get => restRate; set => restRate = value; }
 
     protected override void Awake()
     {
         base.Awake();
         ActionName = "Sleep in Bed";
-        ActionCost = 2; // Sleeping is low effort
+        ActionCost = 2;
     }
 
     private void Start()
@@ -20,7 +22,6 @@ public class Action_Sleep : GoapAction
 
     protected override void SetupEffectsAndPreconditions()
     {
-        // Effect: Sleeping makes your energy stable.
         AddEffect(GoapKeys.EnergyState, (int)MotivatorState.Stable);
     }
 

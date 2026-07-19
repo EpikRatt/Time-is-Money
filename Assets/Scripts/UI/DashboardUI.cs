@@ -1,16 +1,7 @@
 using UnityEngine;
 using TMPro;
-using Unity.VisualScripting;
 
-/// <summary>
-/// User Interface: Simulation controller bridge.
-/// Architectural Purpose: Acts as the primary interface between Canvas UI elements (sliders, toggles)
-/// and the underlying Core Managers. Enforces decoupled communication by translating user input
-/// into parameter updates, subsequently forcing the GOAP planner to discard invalidated plans
-/// and recalculate trajectories based on the newly introduced constraints.
-/// </summary>
-/// 
-public class SimulationControllerUI : MonoBehaviour
+public class DashboardUI : MonoBehaviour
 {
     [SerializeField] private StateManager stateManager;
     [SerializeField] private TextMeshProUGUI timeText;
